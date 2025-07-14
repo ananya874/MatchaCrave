@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matcha Crave - Product Catalogue</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #6b8e23;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-icons span {
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #6b8e23 0%, #2d5016 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid #6b8e23;
+            color: #6b8e23;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #6b8e23;
+            color: white;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 60px 0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .product-card-content {
+            padding: 20px;
+        }
+
+        .product-card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2d5016;
+        }
+
+        .product-card-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .product-card-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .product-card-btn {
+            background: transparent;
+            border: 2px solid #6b8e23;
+            color: #6b8e23;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .product-card-btn:hover {
+            background: #6b8e23;
+            color: white;
+        }
+
+        .bestseller-badge {
+            background: #ff6b35;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .new-badge {
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .sale-badge {
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, #6b8e23 0%, #2d5016 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-description {
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background: #ff6b35;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            background: #e55a2b;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d5016;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #4a6b2a;
+            margin-top: 20px;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 36px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .filter-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .newsletter-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">MATCHA CRAVE</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="matcha blog.html">CATALOG</a></li>
+                   
+                    <li><a href="matcha blog.html">BLOGS&nbsp;</a></li>
+                    <li><a href="matcha contact page.html">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <span>&nbsp;</span>
+                <span>&nbsp;</span>
+                <span>&nbsp;</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title">Product Catalogue</h1>
+        <p class="page-subtitle">Discover our complete collection of premium matcha products</p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-controls">
+                <button class="filter-btn active">All Products</button>
+                
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <div class="products-grid">
+                <!-- Row 1 -->
+                <div class="product-card">
+                    <div class="bestseller-badge">Bestseller</div>
+                    <img src="Y o u  S e e.jpg" alt="Matcha Mochi" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Mochi</h3>
+                        <p class="product-card-description">Soft, chewy mochi filled with sweet matcha cream. A traditional Japanese treat.</p>
+                        <div class="product-card-price">$24</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="bestseller-badge">Bestseller</div>
+                    <img src="The BEST Brown Butter Matcha Cookies Recipe - EricTriesIt.jpg" alt="Matcha Cookies" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Cookies</h3>
+                        <p class="product-card-description">Crispy butter cookies infused with premium matcha powder. Perfect with tea.</p>
+                        <div class="product-card-price">$28</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="bestseller-badge">Bestseller</div>
+                    <img src="Matcha Blondies.jpg" alt="Matcha Genmai" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Brownie</h3>
+                        <p class="product-card-description">Premium matcha blended with roasted rice. A unique and flavorful experience.</p>
+                        <div class="product-card-price">$48</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="product-card">
+                    <img src="Hearty Matcha Mixing Bowls.jpg" alt="Matcha Bowl" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Bowl</h3>
+                        <p class="product-card-description">Traditional ceramic bowl designed specifically for matcha preparation.</p>
+                        <div class="product-card-price">$24</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="Food Photography in Turin - Fotografia di cibo a Torino - Lucia Marecak.jpg" alt="Matcha Powder" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Premium Matcha Powder</h3>
+                        <p class="product-card-description">Stone-ground ceremonial grade matcha powder from Uji, Japan.</p>
+                        <div class="product-card-price">$35</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="Cloudcha Collection.jpg" alt="Matcha Set" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Ceremony Set</h3>
+                        <p class="product-card-description">Complete traditional tea ceremony set with bowl, whisk, and scoop.</p>
+                        <div class="product-card-price">$89</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="product-card">
+                    <div class="new-badge">New</div>
+                    <img src="Match'addicts.jpg" alt="Matcha Latte Mix" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Latte Mix</h3>
+                        <p class="product-card-description">Instant matcha latte powder. Just add hot water for a creamy, delicious drink.</p>
+                        <div class="product-card-price">$32</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="Keeping the main thing, the main thing 🍵.jpg" alt="Bamboo Whisk" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Bamboo Whisk (Chasen)</h3>
+                        <p class="product-card-description">Handcrafted bamboo whisk for creating the perfect matcha froth.</p>
+                        <div class="product-card-price">$18</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="sale-badge">Sale</div>
+                    <img src="Matcha Chocolate Chips and Chunks.jpg" alt="Matcha Chocolate" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha White Chocolate</h3>
+                        <p class="product-card-description">Premium white chocolate infused with matcha. A luxurious treat.</p>
+                        <div class="product-card-price">$26</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="product-card">
+                    <img src="Matcha Green Tea Keto Ice Cream.jpg" alt="Matcha Ice Cream" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Ice Cream</h3>
+                        <p class="product-card-description">Creamy artisanal ice cream with authentic matcha flavor.</p>
+                        <div class="product-card-price">$22</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="Matcha, Cardamom & White Chocolate Mousse – Mousse de Matcha, Cardamomo y Chocolate Blanco » Sweet Cannela.jpg" alt="Matcha Scoop" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Custard Mix&nbsp;</h3>
+                        <p class="product-card-description">Traditional bamboo scoop for measuring the perfect amount of matcha.</p>
+                        <div class="product-card-price">$15</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="new-badge">New</div>
+                    <img src="The Best Matcha Macarons.jpg" alt="Matcha Macarons" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Macarons</h3>
+                        <p class="product-card-description">Delicate French macarons with matcha ganache filling.</p>
+                        <div class="product-card-price">$36</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <!-- Row 5 -->
+                <div class="product-card">
+                    <img src="Matcha+ Tea Eco Teabag Sachets - 50 Teabags (Bulk Packed).jpg" alt="Matcha Tea Bags" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Tea Bags</h3>
+                        <p class="product-card-description">Convenient matcha tea bags for quick and easy preparation.</p>
+                        <div class="product-card-price">$19</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="sale-badge">Sale</div>
+                    <img src="Matcha Pound Cake with Velvety Matcha Glaze - Pin Desserts.jpg" alt="Matcha Cake" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Sponge Cake</h3>
+                        <p class="product-card-description">Light and fluffy sponge cake with matcha cream layers.</p>
+                        <div class="product-card-price">$42</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="Aesthetic matcha set @chocolate_nya.jpg" alt="Matcha Gift Box" class="product-image">
+                    <div class="product-card-content">
+                      <h3 class="product-card-title">Matcha Gift Box</h3>
+                        <p class="product-card-description">Beautifully packaged selection of our finest matcha products.</p>
+                        <div class="product-card-price">$75</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <!-- Row 6 -->
+                <div class="product-card">
+                    <div class="new-badge">New</div>
+                    <img src="Matcha Milkshake.jpg" alt="Matcha Smoothie Mix" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Smoothie Mix</h3>
+                        <p class="product-card-description">Nutritious smoothie powder blend with matcha and superfoods.</p>
+                        <div class="product-card-price">$29</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="Minimal Stoneware Matcha Bowl With Spout – Handmade Ceramic Matcha Set – Earthy Tones Matchawan, Cup, Whisk Holder – Matcha Kit Gift - Etsy.jpg" alt="Matcha Cup" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Ceramic Matcha Cup</h3>
+                        <p class="product-card-description">Traditional ceramic cup perfect for enjoying matcha tea.</p>
+                        <div class="product-card-price">$16</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="Matcha Tiramisu.jpg" alt="Matcha Tiramisu" class="product-image">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Matcha Tiramisu</h3>
+                        <p class="product-card-description">Italian classic dessert with a Japanese twist using matcha.</p>
+                        <div class="product-card-price">$38</div>
+                        <button class="product-card-btn">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2 class="newsletter-title">Subscribe & Save 10%</h2>
+            <p class="newsletter-description">Join our community and be the first to know about new products, exclusive offers, and matcha brewing tips.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address">
+                <button type="submit" class="newsletter-btn">Join the club</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">Matcha Powder</a></li>
+                    <li><a href="#">Matcha Sets</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Gift Cards</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Quality Promise</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Matcha Crave. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

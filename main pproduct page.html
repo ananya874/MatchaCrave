@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matcha Crave - Premium Ceremonial Matcha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #6b8e23;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-icons span {
+            cursor: pointer;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 20px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #6b8e23;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Product Layout */
+        .product-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 40px 0;
+        }
+
+        /* Product Images */
+        .product-images {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .thumbnail-images {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #6b8e23;
+        }
+
+        /* Product Info */
+        .product-info {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-badge {
+            background: #6b8e23;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .product-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2d5016;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stars {
+            color: #ffa500;
+            font-size: 18px;
+        }
+
+        .rating-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .product-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d5016;
+            margin-bottom: 20px;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        /* Product Options */
+        .product-options {
+            margin-bottom: 30px;
+        }
+
+        .option-group {
+            margin-bottom: 25px;
+        }
+
+        .option-label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .size-option {
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .size-option:hover,
+        .size-option.active {
+            border-color: #6b8e23;
+            background: #f8f9f4;
+        }
+
+        .size-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .size-price {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quantity-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            background: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            color: #6b8e23;
+            transition: background 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background: #f8f9f4;
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quantity-input {
+            border: none;
+            padding: 10px;
+            text-align: center;
+            width: 60px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Add to Cart */
+        .add-to-cart-section {
+            margin-bottom: 30px;
+        }
+
+        .add-to-cart-btn {
+            background: #6b8e23;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #5a7319;
+        }
+
+        .add-to-cart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .wishlist-btn {
+            background: white;
+            color: #6b8e23;
+            padding: 12px 30px;
+            border: 2px solid #6b8e23;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .wishlist-btn:hover {
+            background: #6b8e23;
+            color: white;
+        }
+
+        /* Product Features */
+        .product-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9f4;
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 20px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Product Details Tabs */
+        .product-details {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: 60px 0;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 20px 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .tab-button.active {
+            color: #2d5016;
+            border-bottom: 2px solid #6b8e23;
+        }
+
+        .tab-content {
+            padding: 40px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h3 {
+            color: #2d5016;
+            margin-bottom: 20px;
+        }
+
+        .tab-content p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d5016;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #4a6b2a;
+            margin-top: 20px;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .product-info {
+                padding: 20px;
+            }
+
+            .product-title {
+                font-size: 24px;
+            }
+
+            .product-features {
+                grid-template-columns: 1fr;
+            }
+
+            .size-options {
+                justify-content: center;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-button {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+            <div class="logo">MATCHA CRAVE</div>
+        <nav>
+                <ul class="nav-menu">
+                    <li><a href="#catalog" class="active">CATALOG</a></li>
+                    <li><a href="#blogs">BLOGS</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+          </nav>
+</div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="#">Home</a> > <a href="#">Matcha</a> > <a href="#">Ceremonial Grade</a> > Premium Ceremonial Matcha
+        </div>
+    </div>
+
+    <!-- Product Content -->
+    <div class="container">
+        <div class="product-layout">
+            <!-- Product Images -->
+            <div class="product-images">
+                <img src="Nazuna Japanische Spezialitäten _ Berlin _ CREME GUIDES.jpg" alt="Premium Ceremonial Matcha" class="main-image" id="mainImage">
+                
+                <div class="thumbnail-images">
+                    <img src="Home Page - Nua Naturals.jpg" alt="Matcha powder" class="thumbnail active" data-image="https://images.unsplash.com/photo-1587080266227-677cc2354392?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">
+                    <img src="Nazuna Japanische Spezialitäten _ Berlin _ CREME GUIDES.jpg" alt="Matcha in bowl" class="thumbnail" data-image="https://images.unsplash.com/photo-1556909114-4b4c9e8e0c77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">
+                    <img src="choclate.jpg" alt="Tea ceremony" class="thumbnail" data-image="https://images.unsplash.com/photo-1563822249366-d4e2e6b0b6c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">
+                </div>
+          </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+              <div class="success-message" id="successMessage">
+                    Product added to cart successfully!
+                </div>
+
+                <span class="product-badge">BEST SELLER</span>
+                <h1 class="product-title">Matcha Chocolate</h1>
+                
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">4.9/5 (127 reviews)</span>
+                </div>
+
+                <div class="product-price">
+                    <span class="price-original">$89.99</span>
+                    <span id="currentPrice">$69.99</span>
+                </div>
+
+                <div class="product-description">
+                    This premium ceremonial grade matcha is sourced directly from the historic Uji region of Japan. Stone-ground from the finest shade-grown tea leaves, it offers a vibrant jade color and a naturally sweet, umami-rich flavor perfect for traditional tea ceremonies or daily wellness rituals.
+                </div>
+
+                <!-- Product Options -->
+                <div class="product-options">
+                    <div class="option-group">
+                        <label class="option-label">Size:</label>
+                        <div class="size-options">
+                            <div class="size-option" data-size="30g" data-price="69.99">
+                                <div class="size-name">30g</div>
+                                <div class="size-price">$69.99</div>
+                            </div>
+                            <div class="size-option" data-size="50g" data-price="99.99">
+                                <div class="size-name">50g</div>
+                                <div class="size-price">$99.99</div>
+                            </div>
+                            <div class="size-option" data-size="100g" data-price="179.99">
+                                <div class="size-name">100g</div>
+                                <div class="size-price">$179.99</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quantity Selector -->
+                <div class="quantity-selector">
+                    <label class="quantity-label">Quantity:</label>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" id="decreaseBtn">-</button>
+                        <input type="number" class="quantity-input" id="quantityInput" value="1" min="1" max="10">
+                        <button class="quantity-btn" id="increaseBtn">+</button>
+                    </div>
+                </div>
+
+                <!-- Add to Cart -->
+                <div class="add-to-cart-section">
+                    <button class="add-to-cart-btn" id="addToCartBtn">Add to Cart</button>
+                    <button class="wishlist-btn">Add to Wishlist ♡</button>
+                </div>
+
+                <!-- Product Features -->
+                <div class="product-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🌱</span>
+                        <span class="feature-text">Organic Certified</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🇯🇵</span>
+                        <span class="feature-text">Uji, Japan Origin</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🚚</span>
+                        <span class="feature-text">Free Shipping</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💯</span>
+                        <span class="feature-text">100% Pure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Details Tabs -->
+        <div class="product-details">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="description">Description</button>
+                <button class="tab-button" data-tab="ingredients">Ingredients</button>
+                <button class="tab-button" data-tab="brewing">Brewing Guide</button>
+                <button class="tab-button" data-tab="reviews">Reviews</button>
+            </div>
+
+            <div class="tab-content active" id="description">
+                <h3>Product Description</h3>
+                <p>Our Premium Ceremonial Matcha represents the pinnacle of Japanese tea craftsmanship. Sourced from the legendary Uji region, this matcha is made from the youngest, most tender leaves of shade-grown tea plants that have been carefully cultivated for over 400 years.</p>
+                <p>The leaves are stone-ground using traditional granite mills, a process that takes over an hour to produce just 30 grams of matcha. This slow, careful grinding preserves the delicate flavor compounds and vibrant green color that make our matcha exceptional.</p>
+                <p>Perfect for traditional tea ceremonies, this matcha offers a naturally sweet taste with deep umami notes and no bitterness. Rich in antioxidants, L-theanine, and natural caffeine, it provides sustained energy and mental clarity.</p>
+            </div>
+
+            <div class="tab-content" id="ingredients">
+                <h3>Ingredients</h3>
+                <p><strong>100% Organic Matcha Powder</strong> (Camellia sinensis)</p>
+                <p><strong>Origin:</strong> Uji, Kyoto Prefecture, Japan</p>
+                <p><strong>Cultivation:</strong> Shade-grown for 4 weeks before harvest</p>
+                <p><strong>Processing:</strong> Stone-ground using traditional granite mills</p>
+                <p><strong>Certifications:</strong> Organic, Non-GMO, Gluten-Free</p>
+            </div>
+
+            <div class="tab-content" id="brewing">
+                <h3>Traditional Brewing Guide</h3>
+                <p><strong>You'll need:</strong> Matcha bowl (chawan), bamboo whisk (chasen), bamboo scoop (chashaku)</p>
+                <p><strong>Step 1:</strong> Warm your bowl with hot water, then dry</p>
+                <p><strong>Step 2:</strong> Sift 1-2 scoops (1-2g) of matcha into the bowl</p>
+                <p><strong>Step 3:</strong> Add 60ml of hot water (70-80°C / 158-176°F)</p>
+                <p><strong>Step 4:</strong> Whisk vigorously in a "W" motion until frothy</p>
+                <p><strong>Step 5:</strong> Enjoy immediately while warm</p>
+                <p><strong>Modern Method:</strong> Use a milk frother or small whisk for convenience</p>
+            </div>
+
+            <div class="tab-content" id="reviews">
+                <h3>Customer Reviews</h3>
+                <p><strong>★★★★★ Sarah M.</strong> - "The best matcha I've ever tasted! Smooth, creamy, and no bitterness at all."</p>
+                <p><strong>★★★★★ James K.</strong> - "Authentic Japanese quality. Perfect for my morning meditation routine."</p>
+                <p><strong>★★★★★ Lisa R.</strong> - "Beautiful vibrant green color and amazing flavor. Worth every penny!"</p>
+                <p><strong>★★★★☆ Michael T.</strong> - "Excellent quality matcha, though a bit pricey. Great for special occasions."</p>
+                <p><strong>★★★★★ Anna L.</strong> - "Fast shipping and perfectly packaged. The matcha is incredibly fresh and delicious."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">Matcha Powder</a></li>
+                    <li><a href="#">Matcha Sets</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Gift Cards</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Quality Promise</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Matcha Crave. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let cart = [];
+        let selectedSize = '30g';
+        let selectedPrice = 69.99;
+
+        // Thumbnail image switching
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('mainImage').src = this.dataset.image;
+            });
+        });
+
+        // Size selection
+        document.querySelectorAll('.size-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.size-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                selectedSize = this.dataset.size;
+                selectedPrice = parseFloat(this.dataset.price);
+                document.getElementById('currentPrice').textContent = `$${selectedPrice}`;
+            });
+        });
+
+        // Set default size selection
+        document.querySelector('.size-option[data-size="30g"]').classList.add('active');
+
+        // Quantity controls
+        const quantityInput = document.getElementById('quantityInput');
+        const decreaseBtn = document.getElementById('decreaseBtn');
+        const increaseBtn = document.getElementById('increaseBtn');
+
+        decreaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        increaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue < 10) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+
+        quantityInput.addEventListener('change', function() {
+            let value = parseInt(this.value);
+            if (value < 1) this.value = 1;
+            if (value > 10) this.value = 10;
+        });
+
+        // Add to cart functionality
+        document.getElementById('addToCartBtn').addEventListener('click', function() {
+            const quantity = parseInt(quantityInput.value);
+            const product = {
+                name: 'Premium Ceremonial Matcha',
+                size: selectedSize,
+                price: selectedPrice,
+                quantity: quantity,
+                total: selectedPrice * quantity
+            };
+
+            cart.push(product);
+            updateCartCount();
+            showSuccessMessage();
+        });
+
+        function updateCart
